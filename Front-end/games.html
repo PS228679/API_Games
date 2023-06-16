@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:mso="urn:schemas-microsoft-com:office:office"
+    xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <title>GameDex</title>
+    <meta charset="utf-8" />
+    <style>
+        div,
+        footer,
+        form {
+            margin-top: 20px;
+        }
+
+        input,
+        select {
+            margin-top: 5px;
+            width: 40%;
+            padding: 2px;
+        }
+
+        body {
+            width: 80%;
+            max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding-right: 10px;
+        }
+
+        div {
+            width: 100%;
+        }
+
+        label {
+            width: 20%;
+            display: inline-block;
+        }
+
+        td:last-child {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body onload="laad()">
+    <h1>Games CRUD &plus;</h1>
+
+    <div>
+        <label for="developer">Developer:</label>
+        <select id="developer" onclick="laadDeveloperGames()"></select>
+    </div>
+    <br />
+    <table>
+        <tr>
+            <th>Game</th>
+            <th>Developer</th>
+            <th>Release date</th>
+            <th>Platform</th>
+        </tr>
+        <tbody id="tabelInhoud" />
+    </table>
+
+    <div>
+        <label for="naam">naam:</label><input type="text" id="naam" required /><br />
+        <label for="release_date">Release Datum:</label><input type="date" id="release" /><br />
+        <label for="platform">Platform:</label><input type="platform" id="platform" />
+        <button onclick="voegToe()" type="button">Toevoegen</button>
+    </div>
+
+    <footer>&copy; 2023 Nadir</footer>
+</body>
+
+<script>
+    "use strict"
+    const apiBasis = "http://127.0.0.1:8000/api/"
+    const apiWerknemers = apiBasis + "games"
+    const apiFuncties = apiBasis + "developers"
+
+    let developer = []
+    let games = []
